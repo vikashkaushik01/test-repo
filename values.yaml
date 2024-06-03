@@ -5,7 +5,7 @@ nirmata-kyverno-operator:
   createSelfSignedCert: true
   enableWebhook: false
   fullnameOverride: nirmata-operator
-  namespace: nirmata-system
+  namespace: cs-operator
 
   # nirmata-system/pod-container-name == nirmata-kyverno-operator
   globalAnnotations:
