@@ -61,8 +61,8 @@ nirmata-kyverno-operator:
 
       licenseManager:
         imageTag: v0.1.12
-        licenseSecret: nirmata-secrets
-        apiSecret: nirmata-secrets
+        licenseSecret: api-license 
+        apiSecret: api-license 
 
       admissionController:
         replicas: 3
