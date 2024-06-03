@@ -1,0 +1,179 @@
+# https://github.com/nirmata/kyverno-charts/blob/release-chart-1.11/charts/enterprise-kyverno-operator/values.yaml
+nirmata-kyverno-operator:
+  replicaCount: 3
+  imagePullSecrets: []
+  createSelfSignedCert: true
+  enableWebhook: false
+  fullnameOverride: nirmata-operator
+  namespace: nirmata-system
+
+  # nirmata-system/pod-container-name == nirmata-kyverno-operator
+  globalAnnotations:
+    ad.datadoghq.com/nirmata-kyverno-operator.checks: |
+      {
+        "openmetrics": {
+          "init_config": {},
+          "instances": [
+            {
+              "openmetrics_endpoint": "http://%%host%%:8000/metrics",
+              "namespace": "kyverno",
+              "metrics": [".*"]
+            }
+          ]
+        }
+      }
+
+  image:
+    tag: v0.3.3
+
+  podDisruptionBudget:
+    enabled: true
+    minAvailable: 1
+
+  policies:
+    policySets: "[]"
+
+  resources:
+    limits:
+      memory: 5Gi
+
+  kyverno:
+    replicaCount:
+    customNamespaces: true
+    helm:
+      config:
+        resourceFilters:
+        - '[*,kube-system,*]'
+        - '[*,kyverno,*]'
+        - '[*,nirmata-system,*]'
+        - '[*,nirmata,*]'
+        webhooks:
+        # excluded namespaces
+        - namespaceSelector:
+          matchExpressions:
+          - key: kubernetes.io/metadata.name
+            operator: NotIn
+            values:
+            - kube-system
+            - kyverno
+            - nirmata
+            - nirmata-system
+
+      licenseManager:
+        imageTag: v0.1.12
+        licenseSecret: nirmata-secrets
+        apiSecret: nirmata-secrets
+
+      admissionController:
+        replicas: 3
+        podAnnotations:
+          ad.datadoghq.com/kyverno.checks: |
+            {
+              "openmetrics": {
+                "init_config": {},
+                "instances": [
+                  {
+                    "openmetrics_endpoint": "http://%%host%%:8000/metrics",
+                    "namespace": "kyverno",
+                    "metrics": [".*"]
+                  }
+                ]
+              }
+            }
+        podDisruptionBudget:
+          enabled: true
+          minAvailable: 1
+        initContainer:
+          resources:
+            limits:
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 100Mi
+        container:
+          resources:
+            limits:
+              memory: 5Gi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+
+      backgroundController:
+        replicas: 2
+        # image: 
+        #   registry: ghcr.io
+        podAnnotations:
+          ad.datadoghq.com/controller.checks: |
+            {
+              "openmetrics": {
+                "init_config": {},
+                "instances": [
+                  {
+                    "openmetrics_endpoint": "http://%%host%%:8000/metrics",
+                    "namespace": "kyverno",
+                    "metrics": [".*"]
+                  }
+                ]
+              }
+            }
+        podDisruptionBudget:
+          enabled: true
+          minAvailable: 1
+        resources:
+          limits:
+            memory: 1Gi
+          requests:
+            cpu: 200m
+            memory: 96Mi
+
+      cleanupController:
+        replicas: 2
+        podAnnotations:
+          ad.datadoghq.com/controller.checks: |
+            {
+              "openmetrics": {
+                "init_config": {},
+                "instances": [
+                  {
+                    "openmetrics_endpoint": "http://%%host%%:8000/metrics",
+                    "namespace": "kyverno",
+                    "metrics": [".*"]
+                  }
+                ]
+              }
+            }
+        podDisruptionBudget:
+          enabled: true
+          minAvailable: 1
+        resources:
+          limits:
+            memory: 1Gi
+          requests:
+            cpu: 200m
+            memory: 96Mi
+
+      reportsController:
+        replicas: 2
+        podAnnotations:
+          ad.datadoghq.com/controller.checks: |
+            {
+              "openmetrics": {
+                "init_config": {},
+                "instances": [
+                  {
+                    "openmetrics_endpoint": "http://%%host%%:8000/metrics",
+                    "namespace": "kyverno",
+                    "metrics": [".*"]
+                  }
+                ]
+              }
+            }
+        podDisruptionBudget:
+          enabled: true
+          minAvailable: 1
+        resources:
+          limits:
+            memory: 1Gi
+          requests:
+            cpu: 200m
+            memory: 96Mi
