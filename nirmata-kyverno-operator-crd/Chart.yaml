@@ -1,0 +1,9 @@
+apiVersion: v2
+name: nirmata-kyverno-operator-crd
+type: application
+appVersion: v0.4.8
+version: v0.3.3
+dependencies:
+  - name: nirmata-kyverno-operator-crd
+    version: v0.4.8
+    repository: https://nirmata.github.io/kyverno-charts
