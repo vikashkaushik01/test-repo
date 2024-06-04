@@ -1,6 +1,6 @@
 # https://github.com/nirmata/kyverno-charts/blob/release-chart-1.11/charts/enterprise-kyverno-operator/values.yaml
 nirmata-kyverno-operator:
-  replicaCount: 3
+  replicaCount: 1
   imagePullSecrets: []
   createSelfSignedCert: true
   enableWebhook: false
