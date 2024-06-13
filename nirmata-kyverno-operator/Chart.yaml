@@ -1,9 +1,9 @@
 apiVersion: v2
 name: nirmata-kyverno-operator
 type: application
-appVersion: v0.4.12
-version: v0.3.3
+version: v0.4.13
+appVersion: v0.3.9
 dependencies:
   - name: nirmata-kyverno-operator
-    version: v0.4.12
+    version: v0.4.13
     repository: https://nirmata.github.io/kyverno-charts
