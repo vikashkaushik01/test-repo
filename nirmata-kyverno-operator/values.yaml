@@ -58,6 +58,7 @@ nirmata-kyverno-operator:
             - nirmata-system
 
       licenseManager:
+        secretNs: cs-operator
         imageTag: v0.1.13
         licenseSecret: api-license 
         apiSecret: api-license 
