@@ -1,13 +1,13 @@
 # https://github.com/nirmata/kyverno-charts/blob/release-chart-1.11/charts/enterprise-kyverno-operator/values.yaml
-apiAndLicenseSecretExists: true
+
+
 nirmata-kyverno-operator:
-  replicaCount: 1
+  replicaCount: 3
   imagePullSecrets: []
   createSelfSignedCert: true
   enableWebhook: false
   fullnameOverride: nirmata-operator
   namespace: cs-operator
-
 
   # nirmata-system/pod-container-name == nirmata-kyverno-operator
   globalAnnotations:
@@ -24,9 +24,10 @@ nirmata-kyverno-operator:
           ]
         }
       }
+  apiAndLicenseSecretExists: true
 
   image:
-    tag: v0.3.3
+    tag: 
 
   podDisruptionBudget:
     enabled: true
@@ -34,6 +35,10 @@ nirmata-kyverno-operator:
 
   policies:
     policySets: "[]"
+
+  resources:
+    limits:
+      memory: 5Gi
 
   kyverno:
     replicaCount:
@@ -91,6 +96,8 @@ nirmata-kyverno-operator:
               memory: 100Mi
         container:
           resources:
+            limits:
+              memory: 5Gi
             requests:
               cpu: 100m
               memory: 128Mi
@@ -117,6 +124,8 @@ nirmata-kyverno-operator:
           enabled: true
           minAvailable: 1
         resources:
+          limits:
+            memory: 1Gi
           requests:
             cpu: 200m
             memory: 96Mi
@@ -141,6 +150,8 @@ nirmata-kyverno-operator:
           enabled: true
           minAvailable: 1
         resources:
+          limits:
+            memory: 1Gi
           requests:
             cpu: 200m
             memory: 96Mi
