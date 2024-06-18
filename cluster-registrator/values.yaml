@@ -6,8 +6,7 @@ cluster:
   name: kind-cfa
   type: "default-policy-manager-type"
 
-apiToken:
-
+apiTokenSecret: nirmata-secrets
 proxy:
   httpProxy: ""
   httpsProxy: ""
