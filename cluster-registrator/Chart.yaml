@@ -1,0 +1,9 @@
+apiVersion: v2
+name: cluster-registrator
+type: application
+appVersion: 1.0.1
+version: 0.1.12
+dependencies:
+  - name: cluster-registrator
+    version: 0.1.12
+    repository: https://nirmata.github.io/kyverno-charts/
