@@ -1,5 +1,5 @@
 cluster:
-  name: kind-cfa
-apiTokenSecret: nirmata-secrets
+  name: "kind-cfa"
+apiTokenSecret: "nirmata-secrets"
 createNs: false
-namespace: vikash
+namespace: "vikash"
