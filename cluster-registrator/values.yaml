@@ -1,28 +1,5 @@
-nirmataURL: "https://nirmata.io"
-
-createNs: false
-
 cluster:
-  name: kind-cfa
-  type: "default-policy-manager-type"
-
-apiTokenSecret: nirmata-secrets
-proxy:
-  httpProxy: ""
-  httpsProxy: ""
-  noProxy: ""
-
-tlsCert: ""
-
-imageTag: v0.1.2
-
-# Whether registrator should install kube-controller with readonly or read-write permissions.
-# For NDP we provide a read-write-ndp role that has a lot more perms than read-write
-# Roles needed by the kube-controller are ultimately decided based on support in server logic.
-# This parameter can be used as an additional gate for privilege escalation prevention so that
-# we don't provide read-write perms even if yamls downloaded from service need that.
-# Currently simple read-only and read-write flag, but we could have more shorthands for
-# variations such as: * on polexes but read-only on policy-reports, etc.
-controllerPerms: 'read-write'
-
-namespace: nirmata
+  name: "kind-cfa"
+apiTokenSecret: "nirmata-secrets"
+createNs: false
+namespace: "vikash"
